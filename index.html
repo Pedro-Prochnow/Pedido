@@ -153,8 +153,18 @@
   <!-- Tela inicial -->
   <div class="slide active" id="s0">
     <h1>Feliz aniversário, meu amor 💞</h1>
-    <p>Fiz uma surpresa pra você… 💌 clique no botão.</p>
-    <button onclick="next()">Entrar na surpresa</button>
+    <p>Fiz uma surpresa pra você… 💌</p>
+
+    <button onclick="start()" id="startBtn">Entrar na surpresa </button>
+
+
+    <!-- SPOTIFY (APARECE APÓS O CLIQUE) -->
+    <div id="spotify" style="display:none; margin-top:25px;">
+      <iframe style="border-radius:12px; max-width:400px; display:block; margin:auto;"
+        src="https://open.spotify.com/embed/track/7KA4W4McWYRpgf0fWsJZWB" width="100%" height="80" frameborder="0"
+        allow="autoplay; clipboard-write; encrypted-media;">
+      </iframe>
+    </div>
   </div>
 
   <!-- Slide 1 -->
@@ -257,36 +267,54 @@
   <div class="slide" id="s5">
     <h1>Mensagem final 💕</h1>
     <p style="font-size:32px; line-height:1.5; max-width:900px; margin:auto;">
-      É amor, chegou o seu dia. Parabéns por mais um aninho, meu amor.
-      Saiba que eu quero passar a vida inteira ao seu lado.
+      Hoje é um dia especial porque é o dia da pessoa que melhorou tudo ao meu redor.
+      Parabéns, meu amor, por mais um ano de vida.
+      Quero dividir cada sonho, cada conquista e cada detalhe da vida ao seu lado.
       Cada sorriso seu deixa meu dia mais leve,
       cada abraço seu me faz sentir em casa.
       Obrigado por ser meu lugar seguro.
-      Hoje é seu aniversário, mas todos os dias
-      quem ganha o presente sou eu por ter você.
+      Hoje é o seu aniversário, mas todos os dias sou eu quem ganha por ter você comigo.
     </p>
 
-    <button onclick="alert('Te amo 💖')">Te amo!</button>
+    <button onclick="finalEffect()">Te amo!</button>
   </div>
 
   <script>
     let c = 0;
-    function next() {
-      document.getElementById("s" + c).classList.remove("active");
-      c++;
-      document.getElementById("s" + c).classList.add("active");
+    let started = false;
+
+    function start() {
+      if (!started) {
+        document.getElementById("spotify").style.display = "block";
+        document.getElementById("startBtn").innerText = "Continuar 💖";
+        started = true;
+      } else {
+        next();
+      }
     }
 
-    // gerar coraçõezinhos
-    setInterval(() => {
+    function next() {
+      document.getElementById('s' + c).classList.remove('active');
+      c++;
+      document.getElementById('s' + c).classList.add('active');
+    }
+
+    function finalEffect() {
+      document.body.style.background = 'linear-gradient(135deg, #ff5ec4, #ff8ccf)';
+      for (let i = 0; i < 40; i++) createHeart();
+    }
+
+    function createHeart() {
       const h = document.createElement('div');
       h.className = 'heart';
       h.innerHTML = '❤';
       h.style.left = Math.random() * 100 + 'vw';
-      h.style.fontSize = (15 + Math.random() * 15) + 'px';
+      h.style.fontSize = (20 + Math.random() * 25) + 'px';
       document.body.appendChild(h);
       setTimeout(() => h.remove(), 6000);
-    }, 500);
+    }
+
+    setInterval(createHeart, 600);
   </script>
 
 </body>
